@@ -1,0 +1,24 @@
+Sub SaveEachSheetAsWorkbook()
+    Dim ws As Worksheet
+    Dim wb As Workbook
+    Dim newWb As Workbook
+    Dim savePath As String
+    
+    ' Define the path where the new workbooks will be saved
+    savePath = "C:\Your\Save\Path\" ' Replace with your desired save path
+    
+    ' Loop through each worksheet in the current workbook
+    For Each ws In ThisWorkbook.Worksheets
+        ' Create a new workbook
+        Set newWb = Workbooks.Add
+        
+        ' Copy the current worksheet to the new workbook
+        ws.Copy Before:=newWb.Sheets(1)
+        
+        ' Save the new workbook with the same name as the worksheet
+        newWb.SaveAs savePath & ws.Name & ".xlsx"
+        
+        ' Close the new workbook without saving changes to the original workbook
+        newWb.Close SaveChanges:=False
+    Next ws
+End Sub
